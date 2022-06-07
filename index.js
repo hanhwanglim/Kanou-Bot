@@ -1,12 +1,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
+const { Player } = require('discord-player')
 const dotenv = require('dotenv');
 
 dotenv.config();
 DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 
-const client = new Client( { intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
+const player = new Player(client);
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -33,3 +35,7 @@ for (const file of eventFiles) {
 }
 
 client.login(DISCORD_TOKEN);
+
+module.exports = {
+	player
+};
