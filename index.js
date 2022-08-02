@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
 const { Player } = require('discord-player')
 const dotenv = require('dotenv');
+const keepAlive = require('./server')
 
 dotenv.config();
 DISCORD_TOKEN = process.env.DISCORD_TOKEN;
@@ -34,6 +35,7 @@ for (const file of eventFiles) {
 	}
 }
 
+keepAlive()
 client.login(DISCORD_TOKEN);
 
 module.exports = {
